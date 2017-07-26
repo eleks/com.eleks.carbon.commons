@@ -48,7 +48,7 @@ public class GroovyDeployer implements Deployer{
 		Script script = shell.parse( new File(scriptFile) );
 		Map bindings = script.getBinding().getVariables();
 		bindings.clear();
-		//bindings.put("varName",...);
+		bindings.put("log",log);
 		Object result = script.invokeMethod(method, [this.ctx]);
 	}
 
