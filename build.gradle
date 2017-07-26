@@ -1,5 +1,5 @@
 /* GRADLE  */
-apply plugin: 'java'
+apply plugin: "groovy"
 
 repositories {
 	maven { url "http://dist.wso2.org/maven2" }
@@ -12,6 +12,7 @@ dependencies {
 		[group: "org.apache.axis2.wso2", name: "axis2"	,                 version: "1.6.1.wso2v10"],
 		[group: "org.wso2.carbon",       name: "org.wso2.carbon.utils"	, version: "4.2.0"],
 		[group: "org.wso2.carbon",       name: "org.wso2.carbon.core"	, version: "4.2.0"],
+		[group: "org.codehaus.groovy",   name: "groovy-all"   	        , version: "2.4.12"],
 	)
 }
 
