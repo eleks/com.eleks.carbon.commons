@@ -13,6 +13,8 @@ dependencies {
 		[group: "org.wso2.carbon",       name: "org.wso2.carbon.utils"	, version: "4.2.0"],
 		[group: "org.wso2.carbon",       name: "org.wso2.carbon.core"	, version: "4.2.0"],
 		[group: "org.codehaus.groovy",   name: "groovy-all"   	        , version: "2.4.12"],
+		//[group: "org.apache.tomcat",     name: "tomcat-catalina"        , version: "7.0.73"],
+
 	)
 }
 
