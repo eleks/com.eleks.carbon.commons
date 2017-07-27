@@ -15,6 +15,8 @@ import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.runtime.ResourceGroovyMethods;
 import org.codehaus.groovy.runtime.StackTraceUtils;
 
+import java.util.concurrent.ConcurrentHashMap;
+
 
 /**
  * simple groovy script deployer for axis2
@@ -23,6 +25,7 @@ import org.codehaus.groovy.runtime.StackTraceUtils;
 @groovy.transform.CompileStatic
 public class GroovyDeployer implements Deployer{
 	static final Log log = LogFactory.getLog(GroovyDeployer.class);
+	static final ConcurrentHashMap<String,Script> deployed = new ConcurrentHashMap();
 
 	private ConfigurationContext ctx = null;
 	private String extension=null;
@@ -41,7 +44,7 @@ public class GroovyDeployer implements Deployer{
 	}
 
 
-	private void runScript(String scriptFile, String method)throws Exception{
+	private Script compileScript(String scriptFile)throws Exception{
 		CompilerConfiguration conf = new CompilerConfiguration();
 		conf.setDebug(true);
 		GroovyShell shell = new GroovyShell(conf);
@@ -49,15 +52,18 @@ public class GroovyDeployer implements Deployer{
 		Map bindings = script.getBinding().getVariables();
 		bindings.clear();
 		bindings.put("log",log);
-		Object result = script.invokeMethod(method, [this.ctx]);
+		return script;
 	}
 
 
 	public void deploy(DeploymentFileData deploymentFileData) throws DeploymentException {
 		try{
-			runScript(deploymentFileData.getAbsolutePath() ,"deploy");
+			log.info("deploy ${deploymentFileData.getAbsolutePath()}");
+			Script script = compileScript(deploymentFileData.getAbsolutePath());
+			deployed.put(deploymentFileData.getAbsolutePath(), script);
+			script.invokeMethod("deploy", [this.ctx]);
 		}catch(Throwable t){
-			t = new DeploymentException("deploy failed: "+t,t);
+			t = new DeploymentException("deploy failed: $t", t);
 			log.error(t,t);
 			throw t;
 		}
@@ -65,9 +71,15 @@ public class GroovyDeployer implements Deployer{
 
 	public void undeploy(String filename) throws DeploymentException {
 		try{
-			runScript(filename ,"undeploy");
+			log.info("undeploy ${filename}");
+			Script script = deployed.remove(filename);
+			if(script==null){
+				log.warn("no deployed script for: $filename");
+			}else{
+				script.invokeMethod("undeploy", [this.ctx]);
+			}
 		}catch(Throwable t){
-			t = new DeploymentException("undeploy failed: "+t,t);
+			t = new DeploymentException("undeploy failed: $t", t);
 			log.error(t,t);
 			throw t;
 		}
