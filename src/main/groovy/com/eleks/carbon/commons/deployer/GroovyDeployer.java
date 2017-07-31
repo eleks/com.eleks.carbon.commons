@@ -80,10 +80,11 @@ public class GroovyDeployer implements Deployer{
 	public void deploy(DeploymentFileData deploymentFileData) throws DeploymentException {
 		try{
 			String filename = deploymentFileData.getAbsolutePath();
-			log.info("deploy "+filename);
+			log.info("deploy   "+directory+"/"+new File(filename).getName());
 			Script script = compileScript(filename);
 			deployed.put(filename, script);
 			script.invokeMethod("deploy", buildCtx(filename));
+			log.info("deploy   "+directory+"/"+new File(filename).getName()+" SUCCESS");
 		}catch(Throwable t){
 			log.error(t,t);
 			throw new DeploymentException("deploy failed: "+t, t);
@@ -92,13 +93,14 @@ public class GroovyDeployer implements Deployer{
 
 	public void undeploy(String filename) throws DeploymentException {
 		try{
-			log.info("undeploy "+filename);
+			log.info("undeploy "+directory+"/"+new File(filename).getName());
 			Script script = deployed.remove(filename);
 			if(script==null){
 				log.warn("no deployed script for: "+filename);
 			}else{
 				script.invokeMethod("undeploy", buildCtx(filename));
 			}
+			log.info("undeploy "+directory+"/"+new File(filename).getName()+" SUCCESS");
 		}catch(Throwable t){
 			log.error(t,t);
 			throw new DeploymentException("undeploy failed: "+t, t);

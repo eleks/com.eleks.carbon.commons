@@ -109,4 +109,15 @@ public class CarbonUtil{
 			startRunners.add(r);
 		}
 	}
+
+	public static org.apache.axis2.context.ConfigurationContext getAxisConfigurationContext(){
+		return org.wso2.carbon.core.CarbonConfigurationContextFactory.getConfigurationContext();
+	}
+	
+	public static org.apache.axis2.engine.AxisConfiguration getAxisConfiguration(){
+		return getAxisConfigurationContext().getAxisConfiguration();
+	}
+	
+
+
 }
