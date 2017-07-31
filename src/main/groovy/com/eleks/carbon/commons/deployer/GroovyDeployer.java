@@ -48,20 +48,28 @@ public class GroovyDeployer implements Deployer{
 		this.directory = directory;
 	}
 
-	private Map buildCtx(String fileName){
+	protected Map buildCtx(String fileName){
 		Map ctx = new HashMap(5);
-		ctx.put("log",log);
 		ctx.put("file",new File(fileName));
 		ctx.put("config",this.config);
 		return ctx;
 	}
 
+	/**
+	 * If `filename` as a groovy script then return it as a deployer, otherwise returns `Deployer.groovy` in the same directory as a deployer.
+	 */
+	protected Script compileScript(String filename)throws Exception{
+		File file = file = new File(filename);
+		if(filename.endsWith(".groovy")){
+			//nothing to do. let's execute script as a deployer
+		}else{
+			file = new File(file.getParentFile(), "Deployer.groovy");
+		}
 
-	private Script compileScript(String scriptFile)throws Exception{
 		CompilerConfiguration conf = new CompilerConfiguration();
 		conf.setDebug(true);
 		GroovyShell shell = new GroovyShell(conf);
-		Script script = shell.parse( new File(scriptFile) );
+		Script script = shell.parse( file );
 		Map bindings = script.getBinding().getVariables();
 		bindings.clear();
 		bindings.put("log",log);
