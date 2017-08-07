@@ -1,63 +1,63 @@
 /**/
-import com.eleks.carbon.commons.util.CarbonUtil;
-import com.eleks.carbon.commons.util.HTTP;
+//import com.eleks.carbon.commons.util.CarbonUtil;
+//import com.eleks.carbon.commons.util.HTTP;
 
 
 import org.wso2.carbon.identity.entitlement.dto.PolicyDTO;
 import org.wso2.carbon.identity.entitlement.EntitlementPolicyAdminService;
 
-class Const{
-	static String engpoint = "https://localhost:9443/services/EntitlementPolicyAdminService"
-	static String authorization = "Basic "+"admin:admin".getBytes("UTF-8").encodeBase64()
-	static EntitlementPolicyAdminService entitlementPolicyAdminService = new EntitlementPolicyAdminService()
+//import org.wso2.carbon.context.CarbonContext;
+import org.wso2.carbon.context.internal.CarbonContextDataHolder;
+
+def deploy(){
+	ctx.entitlementPolicyAdminService = new EntitlementPolicyAdminService()
+	//assume filename without extension equals to id...
+	//let's put it into ctx to be available in undeploy
+	ctx.policyId = ctx.file.name.replaceAll('\\.[^\\.]*$','')
+	def policyXml = ctx.file.getText("UTF-8")
+	addOrUpdatePolicy(ctx.policyId, policyXml)
 }
 
-def deploy(ctx){
-	CarbonUtil.onServerStart{
-		def policy = ctx.file.getText("UTF-8")
-		addPolicy1(policy)
-	}
+def undeploy(){
+	//assume that policyId was set in deploy
+	deletePolicy(ctx.policyId)
 }
 
-def undeploy(ctx){
+def deletePolicy(String id){
+	ctx.entitlementPolicyAdminService.removePolicy(id, true);
+	log.info "policy deleted : $id"
+	return true;
 }
 
-/*add policy using in-memory access*/
-def addPolicy1(String policyXml){
+def addOrUpdatePolicy(String id, String policyXml){
 	def policy = new PolicyDTO();
 	policy.setPolicy(policyXml);
-	Const.entitlementPolicyAdminService.addPolicy(policy);
+	policy.setActive(true); // set policy enabled
+	if(getPolicy(id)){
+		ctx.entitlementPolicyAdminService.updatePolicy(policy);
+		log.info "policy $id updated"
+	}else{
+		ctx.entitlementPolicyAdminService.addPolicy(policy);
+		log.info "policy $id created"
+	}
+	ctx.entitlementPolicyAdminService.publishToPDP([id] as String[], "CREATE", null, true, -1);
+	log.info "policy $id published"
 	return true
 }
 
-
-
-/*add policy using http call*/
-def addPolicy(String policy){
-		def envelope = """
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://org.apache.axis2/xsd" xmlns:xsd1="http://dto.entitlement.identity.carbon.wso2.org/xsd">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <xsd:addPolicy>
-         <xsd:policyDTO>
-            <xsd1:policy><![CDATA[${policy}]]></xsd1:policy>
-         </xsd:policyDTO>
-      </xsd:addPolicy>
-   </soapenv:Body>
-</soapenv:Envelope>
-		""" //end of envelope "
-		def r = HTTP.post(
-			url: Const.endpoint,
-			body: envelope,
-			encoding: "UTF-8",
-			headers: [
-				"SOAPAction"   : "\"urn:addPolicy\"",
-				"Content-Type" : "text/xml;charset=UTF-8",
-				"Authorization": Const.authorization,
-			]
-		).response
-		assert r.code == 200
-		assert r.body."*:Body"."*:addPolicyResponse"."*:return"
-		return true
+/**returns "pap" or "pdp" if policy exists. otherwose returns null*/
+def getPolicy(String id){
+	try{
+		PolicyDTO policy = ctx.entitlementPolicyAdminService.getPolicy(id,true)
+		assert policy.policyId==id
+		return policy
+	}catch(e){}
+	try{
+		PolicyDTO policy = ctx.entitlementPolicyAdminService.getPolicy(id,false)
+		assert policy.policyId==id
+		return policy
+	}catch(e){}
+	return null
 }
+
 

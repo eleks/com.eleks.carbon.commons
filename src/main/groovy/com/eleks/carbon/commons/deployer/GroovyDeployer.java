@@ -19,7 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import java.io.File;
 import java.util.Map;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.ArrayList;
 
 
@@ -35,6 +35,8 @@ public class GroovyDeployer implements Deployer{
 	private ConfigurationContext config = null;
 	private String extension=null;
 	private String directory=null;
+
+	private Map deployCtx = null;
 	
 	public void init(ConfigurationContext ctx){
 		this.config = ctx;
@@ -46,13 +48,6 @@ public class GroovyDeployer implements Deployer{
 
 	public void setDirectory(String directory){
 		this.directory = directory;
-	}
-
-	protected Map buildCtx(String fileName){
-		Map ctx = new HashMap(5);
-		ctx.put("file",new File(fileName));
-		ctx.put("config",this.config);
-		return ctx;
 	}
 
 	/**
@@ -73,6 +68,12 @@ public class GroovyDeployer implements Deployer{
 		Map bindings = script.getBinding().getVariables();
 		bindings.clear();
 		bindings.put("log",log);
+
+		Map ctx = new LinkedHashMap(7);
+		ctx.put("file",new File(filename));
+		ctx.put("config",this.config);
+		bindings.put("ctx",ctx);
+
 		return script;
 	}
 
@@ -83,7 +84,7 @@ public class GroovyDeployer implements Deployer{
 			log.info("deploy   "+directory+"/"+new File(filename).getName());
 			Script script = compileScript(filename);
 			deployed.put(filename, script);
-			script.invokeMethod("deploy", buildCtx(filename));
+			script.invokeMethod("deploy", null);
 			log.info("deploy   "+directory+"/"+new File(filename).getName()+" SUCCESS");
 		}catch(Throwable t){
 			log.error(t,t);
@@ -98,7 +99,7 @@ public class GroovyDeployer implements Deployer{
 			if(script==null){
 				log.warn("no deployed script for: "+filename);
 			}else{
-				script.invokeMethod("undeploy", buildCtx(filename));
+				script.invokeMethod("undeploy", null);
 			}
 			log.info("undeploy "+directory+"/"+new File(filename).getName()+" SUCCESS");
 		}catch(Throwable t){
