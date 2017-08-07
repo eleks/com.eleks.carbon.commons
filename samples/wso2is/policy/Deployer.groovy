@@ -25,7 +25,7 @@ def undeploy(){
 
 def deletePolicy(String id){
 	ctx.entitlementPolicyAdminService.removePolicy(id, true);
-	log.info "policy deleted : $id"
+	log.info "policy $id deleted"
 	return true;
 }
 
