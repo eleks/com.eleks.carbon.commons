@@ -29,9 +29,8 @@ def deploy(){
 	//call get 
 	ctx.domain = CarbonContext.getThreadLocalCarbonContext().getTenantDomain();
 	ctx.user = CarbonContext.getThreadLocalCarbonContext().getUsername() ?: "PRIMARY/admin";
-	log.info "    -----------------------------------------------------------------"
 
-	//>>> fix permissions
+	//>>> fix permissions: not working yet
 	/*
 	def permissions = sp.getPermissionAndRoleConfig().getPermissions()
 	for(int i=0;i<permissions.length;i++){
