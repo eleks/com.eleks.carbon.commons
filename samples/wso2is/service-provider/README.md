@@ -15,7 +15,7 @@ add the following section into axis2.xml:
 
 #### deployment folder
 
-create `repository/deployment/server/service-provider` folder and put in it `Deployer.groovy`
+create `repository/deployment/server/service-provider` folder and put in it [`Deployer.groovy`](./Deployer.groovy)
 
 #### result
 
