@@ -22,7 +22,9 @@ create `repository/deployment/server/service-provider` folder and put in it [`De
 after this you can put `xml` files with service-provider definition into this folder and it will be automatically created on server. 
 
 ### the structure of service-provider xml file
-There is no xsd file =( from wso2 and to understand the structure you have to see the following method:
+There is no xsd file from wso2 =( 
+
+and to understand the structure you have to see the code of the following method:
 
 [ServiceProvider.build(OMElement serviceProviderOM)](https://github.com/wso2-attic/carbon-identity/blob/master/components/application-mgt/org.wso2.carbon.identity.application.common/src/main/java/org/wso2/carbon/identity/application/common/model/ServiceProvider.java#L59)
 
