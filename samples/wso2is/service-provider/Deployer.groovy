@@ -27,33 +27,33 @@ def deploy(){
 	omStream.close();
 	omStream = null;
 	//get domain and user (required to register service-provider) 
-	ctx.tenant = sp.getOwner()?.getTenantDomain() :? CarbonContext.getThreadLocalCarbonContext().getTenantDomain();
-	ctx.user   = sp.getOwner()?.getUserName()     :? CarbonContext.getThreadLocalCarbonContext().getUsername() ?: "admin";
+	ctx.tenant = sp.getOwner()?.getTenantDomain() ?: CarbonContext.getThreadLocalCarbonContext().getTenantDomain();
+	ctx.user   = sp.getOwner()?.getUserName()     ?: CarbonContext.getThreadLocalCarbonContext().getUsername() ?: "admin";
 	if(ctx.user.indexOf('/')<0){
 		ctx.user = (sp.getOwner()?.getUserStoreDomain() ?: 'PRIMARY')+'/'+ctx.user;
 	}
 	//get current service-provider by name
-	def oldSp = ctx.applicationService.getApplicationExcludingFileBasedSPs(ctx.appName,ctx.domain);
+	def oldSp = ctx.applicationService.getApplicationExcludingFileBasedSPs(ctx.appName,ctx.tenant);
 	if(!oldSp){
 		//create new empty service provider if not exists with only name and description set
 		oldSp = new ServiceProvider()
 		oldSp.applicationName = sp.applicationName
 		oldSp.description     = sp.description
-		ctx.applicationService.createApplication(oldSp, ctx.domain, ctx.user);
-		oldSp = ctx.applicationService.getApplicationExcludingFileBasedSPs(ctx.appName,ctx.domain);
+		ctx.applicationService.createApplication(oldSp, ctx.tenant, ctx.user);
+		oldSp = ctx.applicationService.getApplicationExcludingFileBasedSPs(ctx.appName,ctx.tenant);
 		log.info "    ${ctx.appName} service-provider created with id: ${oldSp.applicationID}"
 	}
 	//get id of the existing service-provider
 	sp.applicationID = oldSp.applicationID;
 	//update all the parameters of service provider
-	ctx.applicationService.updateApplication(sp, ctx.domain, ctx.user);
+	ctx.applicationService.updateApplication(sp, ctx.tenant, ctx.user);
 	log.info "    ${ctx.appName} service-provider updated with id: ${sp.applicationID}"
 }
 
 def undeploy(){
-	def oldSp = ctx.applicationService.getApplicationExcludingFileBasedSPs(ctx.appName,ctx.domain);
+	def oldSp = ctx.applicationService.getApplicationExcludingFileBasedSPs(ctx.appName,ctx.tenant);
 	if(oldSp){
-		ctx.applicationService.deleteApplication(ctx.appName, ctx.domain, ctx.user);
+		ctx.applicationService.deleteApplication(ctx.appName, ctx.tenant, ctx.user);
 		log.info "    ${ctx.appName} service-provider deleted"
 	}
 		

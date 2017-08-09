@@ -114,13 +114,13 @@
   </LocalAndOutBoundAuthenticationConfig>
   <OutboundProvisioningConfig>
   </OutboundProvisioningConfig>
-  <Owner>
+  <!--Owner>
     <TenantDomain>carbon.super</TenantDomain>
     <UserName>admin</UserName>
     <UserStoreDomain>PRIMARY</UserStoreDomain>
-  </Owner>
+  </Owner-->
   <PermissionAndRoleConfig>
-    <!--Permissions>
+    <Permissions>
       <ApplicationPermission>
         <value>planning/cropsratio/edit</value>
       </ApplicationPermission>
@@ -133,7 +133,7 @@
       <ApplicationPermission>
       <value>planning/seeds</value>
       </ApplicationPermission>
-    </Permissions-->
+    </Permissions>
   </PermissionAndRoleConfig>
   <SaasApp>false</SaasApp>
 </ServiceProvider>
