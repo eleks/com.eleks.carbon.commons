@@ -26,29 +26,16 @@ def deploy(){
 	//release resources
 	omStream.close();
 	omStream = null;
-	//call get 
-	ctx.domain = CarbonContext.getThreadLocalCarbonContext().getTenantDomain();
-	ctx.user = CarbonContext.getThreadLocalCarbonContext().getUsername() ?: "PRIMARY/admin";
-
-	//>>> fix permissions: not working yet
-	/*
-	def permissions = sp.getPermissionAndRoleConfig().getPermissions()
-	for(int i=0;i<permissions.length;i++){
-		def value = permissions[i].getValue()
-		permissions[i] = new ApplicationPermission(){
-			public String toString(){
-				return this.getValue()+"/.";
-			}
-		}
-		permissions[i].setValue(value);
+	//get domain and user (required to register service-provider) 
+	ctx.tenant = sp.getOwner()?.getTenantDomain() :? CarbonContext.getThreadLocalCarbonContext().getTenantDomain();
+	ctx.user   = sp.getOwner()?.getUserName()     :? CarbonContext.getThreadLocalCarbonContext().getUsername() ?: "admin";
+	if(ctx.user.indexOf('/')<0){
+		ctx.user = (sp.getOwner()?.getUserStoreDomain() ?: 'PRIMARY')+'/'+ctx.user;
 	}
-	sp.getPermissionAndRoleConfig().setPermissions(permissions)
-	*/
-	//<<< fix permissions
-	
+	//get current service-provider by name
 	def oldSp = ctx.applicationService.getApplicationExcludingFileBasedSPs(ctx.appName,ctx.domain);
 	if(!oldSp){
-		//create new empty service provider
+		//create new empty service provider if not exists with only name and description set
 		oldSp = new ServiceProvider()
 		oldSp.applicationName = sp.applicationName
 		oldSp.description     = sp.description
@@ -58,7 +45,7 @@ def deploy(){
 	}
 	//get id of the existing service-provider
 	sp.applicationID = oldSp.applicationID;
-    new File("SP.JSON").setText( groovy.json.JsonOutput.toJson( sp ) )
+	//update all the parameters of service provider
 	ctx.applicationService.updateApplication(sp, ctx.domain, ctx.user);
 	log.info "    ${ctx.appName} service-provider updated with id: ${sp.applicationID}"
 }
