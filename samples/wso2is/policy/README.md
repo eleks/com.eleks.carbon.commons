@@ -13,8 +13,14 @@ add the following section into axis2.xml:
 
 #### deployment folder
 
-create `repository/deployment/server/policy` folder and put in it `Deployer.groovy`
+create `repository/deployment/server/policy` folder and put in it [`Deployer.groovy`](./Deployer.groovy)
 
 #### result
 
 after this you can put `xml` files with policy definition into this folder and it will be automatically created on server. 
+
+### policy xml structure
+
+in wso2is web console you can create the policy and edit it as xml.  
+
+check this example: [kernelChiefAgronomist_master_policy.xml](./kernelChiefAgronomist_master_policy.xml) 
