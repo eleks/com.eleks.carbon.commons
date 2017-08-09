@@ -80,7 +80,7 @@
     <LocalClaimDialect>false</LocalClaimDialect>
     <RoleClaimURI>http://schemas.microsoft.com/ws/2008/06/identity/claims/role</RoleClaimURI>
   </ClaimConfig>
-  <Description>Test service provider (illia.alifanov)</Description>
+  <Description>Test service provider (dlukyanov)</Description>
   <InboundAuthenticationConfig>
     <InboundAuthenticationRequestConfigs>
       <InboundAuthenticationRequestConfig>
