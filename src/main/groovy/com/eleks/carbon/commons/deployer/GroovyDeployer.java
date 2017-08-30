@@ -31,6 +31,9 @@ import java.util.ArrayList;
 public class GroovyDeployer implements Deployer{
 	static final Log log = LogFactory.getLog(GroovyDeployer.class);
 	static final ConcurrentHashMap<String,Script> deployed = new ConcurrentHashMap();
+	
+	long compiledTime = -1;
+	Class<Script> compiledScript = null;
 
 	private ConfigurationContext config = null;
 	private String extension=null;
@@ -55,16 +58,30 @@ public class GroovyDeployer implements Deployer{
 	 */
 	protected Script compileScript(String filename)throws Exception{
 		File file = file = new File(filename);
+		Script script = null;
 		if(filename.endsWith(".groovy")){
 			//nothing to do. let's execute script as a deployer
 		}else{
 			file = new File(file.getParentFile(), "Deployer.groovy");
+			if(compiledTime != file.lastModified())compiledScript = null;
 		}
 
-		CompilerConfiguration conf = new CompilerConfiguration();
-		conf.setDebug(true);
-		GroovyShell shell = new GroovyShell(conf);
-		Script script = shell.parse( file );
+		if(compiledScript!=null){
+			script = compiledScript.newInstance();
+		}else{
+			log.debug("compile  "+file);
+			CompilerConfiguration conf = new CompilerConfiguration();
+			conf.setDebug(true);
+			conf.setScriptBaseClass( DeployerScript.class.getName() );
+
+			GroovyShell shell = new GroovyShell(conf);
+			script = shell.parse( file );
+			if(!filename.endsWith(".groovy")){
+				compiledTime = file.lastModified();
+				compiledScript = (Class<Script>)script.getClass();
+			}
+			log.debug("compiled "+file);
+		}
 		Map bindings = script.getBinding().getVariables();
 		bindings.clear();
 		bindings.put("log",log);
@@ -111,6 +128,11 @@ public class GroovyDeployer implements Deployer{
 	public void cleanup() throws DeploymentException {
 		// Deployers which require cleaning up should override this method
 		//do we need this?
+	}
+
+	public static abstract class DeployerScript extends Script{
+		Log log;
+		Map<String,Object> ctx;
 	}
 }
 
