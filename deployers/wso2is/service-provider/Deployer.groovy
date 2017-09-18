@@ -7,6 +7,7 @@ import org.wso2.carbon.identity.application.common.model.ServiceProvider;
 import org.wso2.carbon.identity.application.common.model.ApplicationPermission;
 //import org.wso2.carbon.identity.application.mgt.ApplicationManagementAdminService;
 import org.wso2.carbon.identity.application.mgt.ApplicationManagementService;
+import org.wso2.carbon.identity.application.mgt.ApplicationMgtUtil;
 
 import org.wso2.carbon.context.CarbonContext;
 
@@ -35,6 +36,11 @@ def deploy(){
 	//get current service-provider by name
 	def oldSp = ctx.applicationService.getApplicationExcludingFileBasedSPs(ctx.appName,ctx.tenant);
 	if(!oldSp){
+		//we have new SP but Application/role could exist. try to drop it..
+		try{
+			ApplicationMgtUtil.deleteAppRole(ctx.appName);
+			log.debug "    ${ctx.appName} try to delete role.."
+		}catch(e){ log.warn "    ${ctx.appName}" + e }
 		//create new empty service provider if not exists with only name and description set
 		oldSp = new ServiceProvider()
 		oldSp.applicationName = sp.applicationName
