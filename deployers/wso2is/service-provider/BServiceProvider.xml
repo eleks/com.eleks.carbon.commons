@@ -9,76 +9,78 @@
         <ClaimId>0</ClaimId>
         <ClaimUri>http://wso2.org/claims/username</ClaimUri>
       </LocalClaim>
-      <Mandatory>false</Mandatory>
+      <MandatoryClaim>false</MandatoryClaim>
       <RemoteClaim>
         <ClaimId>0</ClaimId>
         <ClaimUri>http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name</ClaimUri>
       </RemoteClaim>
-      <Requested>true</Requested>
+      <RequestClaim>true</RequestClaim>
     </ClaimMapping>
     <ClaimMapping>
       <LocalClaim>
         <ClaimId>0</ClaimId>
         <ClaimUri>http://wso2.org/claims/userid</ClaimUri>
       </LocalClaim>
-      <Mandatory>false</Mandatory>
+      <MandatoryClaim>false</MandatoryClaim>
       <RemoteClaim>
         <ClaimId>0</ClaimId>
         <ClaimUri>http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata</ClaimUri>
       </RemoteClaim>
-      <Requested>true</Requested>
+      <RequestClaim>true</RequestClaim>
     </ClaimMapping>
     <ClaimMapping>
       <LocalClaim>
         <ClaimId>0</ClaimId>
         <ClaimUri>http://wso2.org/claims/role</ClaimUri>
       </LocalClaim>
-      <Mandatory>false</Mandatory>
+      <MandatoryClaim>false</MandatoryClaim>
       <RemoteClaim>
         <ClaimId>0</ClaimId>
         <ClaimUri>http://schemas.microsoft.com/ws/2008/06/identity/claims/role</ClaimUri>
       </RemoteClaim>
-      <Requested>true</Requested>
+      <RequestClaim>true</RequestClaim>
     </ClaimMapping>
     <ClaimMapping>
       <LocalClaim>
         <ClaimId>0</ClaimId>
         <ClaimUri>http://wso2.org/claims/im</ClaimUri>
       </LocalClaim>
-      <Mandatory>false</Mandatory>
+      <MandatoryClaim>false</MandatoryClaim>
       <RemoteClaim>
         <ClaimId>0</ClaimId>
         <ClaimUri>http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier</ClaimUri>
       </RemoteClaim>
-      <Requested>true</Requested>
+      <RequestClaim>true</RequestClaim>
     </ClaimMapping>
     <ClaimMapping>
       <LocalClaim>
         <ClaimId>0</ClaimId>
         <ClaimUri>http://wso2.org/claims/emailaddress</ClaimUri>
       </LocalClaim>
-      <Mandatory>false</Mandatory>
+      <MandatoryClaim>false</MandatoryClaim>
       <RemoteClaim>
         <ClaimId>0</ClaimId>
         <ClaimUri>http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress</ClaimUri>
       </RemoteClaim>
-      <Requested>true</Requested>
+      <RequestClaim>true</RequestClaim>
     </ClaimMapping>
     <!--ClaimMapping>
       <LocalClaim>
         <ClaimId>0</ClaimId>
         <ClaimUri>http://wso2.org/claims/active</ClaimUri>
       </LocalClaim>
-      <Mandatory>false</Mandatory>
+      <MandatoryClaim>false</MandatoryClaim>
       <RemoteClaim>
         <ClaimId>0</ClaimId>
         <ClaimUri>availableUrls</ClaimUri>
       </RemoteClaim>
-      <Requested>false</Requested>
+      <RequestClaim>false</RequestClaim>
     </ClaimMapping-->
     </ClaimMappings>
     <LocalClaimDialect>false</LocalClaimDialect>
     <RoleClaimURI>http://schemas.microsoft.com/ws/2008/06/identity/claims/role</RoleClaimURI>
+    <!--Subject claim URI?-->
+    <UserClaimURI>http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name</UserClaimURI>
   </ClaimConfig>
   <Description>Test service provider (dlukyanov)</Description>
   <InboundAuthenticationConfig>
