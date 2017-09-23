@@ -79,8 +79,7 @@
     </ClaimMappings>
     <LocalClaimDialect>false</LocalClaimDialect>
     <RoleClaimURI>http://schemas.microsoft.com/ws/2008/06/identity/claims/role</RoleClaimURI>
-    <!--Subject claim URI?-->
-    <UserClaimURI>http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name</UserClaimURI>
+    <!--UserClaimURI>http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name</UserClaimURI-->
   </ClaimConfig>
   <Description>Test service provider (dlukyanov)</Description>
   <InboundAuthenticationConfig>
@@ -108,11 +107,12 @@
     <ProvisioningUserStore/>
   </InboundProvisioningConfig>
   <LocalAndOutBoundAuthenticationConfig>
-    <AlwaysSendBackAuthenticatedListOfIdPs>false</AlwaysSendBackAuthenticatedListOfIdPs>
+    <alwaysSendBackAuthenticatedListOfIdPs>false</alwaysSendBackAuthenticatedListOfIdPs>
     <AuthenticationType>default</AuthenticationType>
     <EnableAuthorization>false</EnableAuthorization>
-    <UseTenantDomainInLocalSubjectIdentifier>false</UseTenantDomainInLocalSubjectIdentifier>
-    <UseUserstoreDomainInLocalSubjectIdentifier>false</UseUserstoreDomainInLocalSubjectIdentifier>
+    <UseTenantDomainInUsername>false</UseTenantDomainInUsername>
+    <UseUserstoreDomainInUsername>false</UseUserstoreDomainInUsername>
+    <subjectClaimUri>http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name</subjectClaimUri>
   </LocalAndOutBoundAuthenticationConfig>
   <OutboundProvisioningConfig>
   </OutboundProvisioningConfig>
