@@ -1,7 +1,7 @@
 ## wso2 carbon any server registry items deployer
 ### deploy & configuration
-#### com.eleks.carbon.commons.jar
-put the latest `com.eleks.carbon.commons.jar` library from [releases](https://github.com/eleks/com.eleks.carbon.commons/releases) into `repository/components/lib` folder on wso2is server
+#### libraries
+put the latest `com.eleks.carbon.commons.jar` library from [releases](https://github.com/eleks/com.eleks.carbon.commons/releases) into `repository/components/lib` folder on wso2 server
 
 make sure you have a groovy-all library in your server 
 
