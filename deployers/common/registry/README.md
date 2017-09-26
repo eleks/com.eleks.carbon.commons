@@ -40,5 +40,6 @@ where
  the name of the file will be like original file but without `xreg` extension
  ex: `aaa.bbb.xreg` -> `aaa.bbb`
 
-check xrgg file examples in this folder
+
+check xreg file examples in this folder
 
