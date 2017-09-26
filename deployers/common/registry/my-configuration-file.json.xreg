@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- registry types: USER_CONFIGURATION,  USER_GOVERNANCE,  SYSTEM_CONFIGURATION,  SYSTEM_GOVERNANCE,  LOCAL_REPOSITORY -->
+<registry type="SYSTEM_CONFIGURATION" path="/">
+	<!-- SYSTEM_CONFIGURATION with path='/' wil go to '_system/config/' -->
+	<!-- this element will be stored into registry as xml -->
+	<!-- if you want non-xml text wrap in in CDATA -->
+	<![CDATA[
+	{
+		"configuration": {
+			"basePartnerService"     : "http://1.2.3.4",
+			"indentityServerService" : "https://1.2.3.4:9449"
+		}
+	}	
+	]]>
+</registry>
