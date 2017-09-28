@@ -5,7 +5,7 @@ put the latest `com.eleks.carbon.commons.jar` library from [releases](https://gi
 
 make sure you have a groovy-all library in your server 
 
-if not [download the latest](https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all) and put into `repository/components/lib` folder on wso2 server
+if not [download the latest stable](https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all) and put into `repository/components/lib` folder on wso2 server
 
 #### axis2.xml 
 add the following section into axis2.xml:
