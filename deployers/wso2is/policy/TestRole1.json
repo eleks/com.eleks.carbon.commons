@@ -1,5 +1,5 @@
 {
-    "description":"if (role of user is `TestRole1` or `KERNEL\TestRole1`) and (resource+action is one of the listed below) --> the access will be permitted",
+    "description":"if (role of user is `TestRole1` or `KERNEL/TestRole1`) and (resource+action is one of the listed below) --> the access will be permitted",
     "role": [
         "KERNEL/TestRole1",
         "TestRole1"
