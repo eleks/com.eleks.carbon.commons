@@ -5,71 +5,15 @@
         "TestRole1"
     ],
     "actions": {
-        "planning.crop-capacity": [
-            "view"
+        "resource.number.1": [
+            "action-name1"
         ],
-        "planning.crops-ratio": [
-            "view"
+        "resource.number.2": [
+            "action-name2"
         ],
-        "planning.cultivation": [
-            "view"
-        ],
-        "planning.dictionaries": [
-            "edit",
-            "view"
-        ],
-        "planning.distribution": [
-            "view"
-        ],
-        "planning.field-passport": [
-            "view"
-        ],
-        "planning.financial-modeling": [
-            "view"
-        ],
-        "planning.financial-modeling.all-clusters-results": [
-            "view"
-        ],
-        "planning.financial-modeling.expenses": [
-            "view"
-        ],
-        "planning.financial-modeling.expenses.indexes": [
-            "view"
-        ],
-        "planning.financial-modeling.modeling": [
-            "view"
-        ],
-        "planning.financial-modeling.previous-expenses": [
-            "view"
-        ],
-        "planning.nutrition": [
-            "view"
-        ],
-        "planning.nutrition.cluster": [
-            "approve",
-            "change-nitrogen-schema",
-            "group-actions",
-            "reject"
-        ],
-        "planning.nutrition.field": [
-            "change-nitrogen-schema",
-            "edit-input-method-experiment-field",
-            "edit-liming-material",
-            "edit-pk-fertilizer-norms",
-            "leave-note",
-            "mark-for-deposit"
-        ],
-        "planning.plant-protection": [
-            "view"
-        ],
-        "planning.ripeness-groups": [
-            "view"
-        ],
-        "planning.seed-treatment": [
-            "view"
-        ],
-        "planning.seeds": [
-            "view"
+        "the-other-resource": [
+            "another-action3",
+            "another-action4"
         ]
-    }
+   }
 }
