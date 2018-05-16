@@ -1,11 +1,11 @@
 ## wso2 carbon any server registry items deployer
 ### deploy & configuration
-#### com.eleks.carbon.commons.jar
-put the latest `com.eleks.carbon.commons.jar` library from [releases](https://github.com/eleks/com.eleks.carbon.commons/releases) into `repository/components/lib` folder on wso2is server
+#### libraries
+put the latest `com.eleks.carbon.commons.jar` library from [releases](https://github.com/eleks/com.eleks.carbon.commons/releases) into `repository/components/lib` folder on wso2 server
 
 make sure you have a groovy-all library in your server 
 
-if not [download the latest](https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all) and put into `repository/components/lib` folder on wso2 server
+if not [download the latest stable](https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all) and put into `repository/components/lib` folder on wso2 server
 
 #### axis2.xml 
 add the following section into axis2.xml:
@@ -40,5 +40,6 @@ where
  the name of the file will be like original file but without `xreg` extension
  ex: `aaa.bbb.xreg` -> `aaa.bbb`
 
-check xrgg file examples in this folder
+
+check xreg file examples in this folder
 
