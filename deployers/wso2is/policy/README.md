@@ -7,8 +7,10 @@ put the latest `com.eleks.carbon.commons.jar` library from [releases](https://gi
 add the following section into axis2.xml:
 
 ```xml
-    <deployer extension="xml" directory="policy" 
-        class="com.eleks.carbon.commons.deployer.GroovyDeployer" />
+    <!-- for standard xacml policy format -->
+    <deployer extension="xml" directory="policy" class="com.eleks.carbon.commons.deployer.GroovyDeployer" />
+    <!-- for simplified json policy format -->
+    <deployer extension="json" directory="policy" class="com.eleks.carbon.commons.deployer.GroovyDeployer" />
 ```
 
 #### deployment folder
@@ -23,4 +25,8 @@ after this you can put `xml` files with policy definition into this folder and i
 
 in wso2is web console you can create the policy and edit it as xml.  
 
-check this example: [kernelChiefAgronomist_master_policy.xml](./kernelChiefAgronomist_master_policy.xml) 
+check this example: [TestRole2.xml](./TestRole2.xml) 
+
+### policy json structure
+
+check this example: [TestRole1.json](./TestRole1.json) 
