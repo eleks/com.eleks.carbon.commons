@@ -9,10 +9,11 @@ repositories {
 dependencies {
 	//compile fileTree(dir: "libs", include: "*.jar")
 	compile(
-		[group: "org.apache.axis2.wso2", name: "axis2"	,                 version: "1.6.1.wso2v10"],
-		[group: "org.wso2.carbon",       name: "org.wso2.carbon.utils"	, version: "4.2.0"],
-		[group: "org.wso2.carbon",       name: "org.wso2.carbon.core"	, version: "4.2.0"],
-		[group: "org.codehaus.groovy",   name: "groovy-all"   	        , version: "2.4.12"],
+		[group: "org.apache.axis2.wso2",  name: "axis2"	,                 version: "1.6.1.wso2v10"],
+		[group: "org.wso2.carbon",        name: "org.wso2.carbon.utils"	, version: "4.2.0"],
+		[group: "org.wso2.carbon",        name: "org.wso2.carbon.core"	, version: "4.2.0"],
+		[group: "org.apache.ws.security", name: "wss4j"                 , version: "1.5.11-wso2v5"],
+		[group: "org.codehaus.groovy",    name: "groovy-all"   	        , version: "2.4.12"],
 		//[group: "org.apache.tomcat",     name: "tomcat-catalina"        , version: "7.0.73"],
 
 	)
